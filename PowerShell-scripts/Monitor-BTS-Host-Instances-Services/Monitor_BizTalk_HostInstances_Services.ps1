@@ -1,11 +1,6 @@
 ﻿#Author: Sandro Pereira
 #Date: 2016-02-14
 
-#Set mail variables
-[STRING]$PSEmailServer = "mySMTPServer" #SMTP Server.
-[STRING]$SubjectPrefix = "Host instances not running - "
-[STRING]$From = "biztalksupport@mail.pt"
-[array]$EmailTo = ("sandro.pereira@devscope.net")
 
 #Get DB info
 [STRING]$SQLInstance = get-wmiobject MSBTS_GroupSetting -namespace root\MicrosoftBizTalkServer | select-object -expand MgmtDbServerName
@@ -21,7 +16,7 @@ if ($hostInstances -eq $null) {exit}
 #Create mail content
 $mailBodyHI = ""
 $mailTextReportHI = "There are "+ $hostInstances.Count  + " Host Instances not running in the BizTalk group " + $BizTalkGroup + "."
-[STRING]$Subject = $SubjectPrefix + $BizTalkGroup
+
 
 foreach ($hostInstance in $hostInstances)
 {
@@ -141,12 +136,5 @@ $mailBodyHI
 </body>
 "@
 
+Add-Content -Path .\host.html -value $HTMLmessage
 #Send mail
-foreach ($to in $EmailTo) 
-{
-    $Body = $HTMLmessage
-    $SMTPClient = New-Object Net.Mail.SmtpClient($PSEmailServer) 
-    $message = New-Object Net.Mail.MailMessage($from, $to, $Subject, $Body)
-    $message.IsBodyHtml = $true;
-    $SMTPClient.Send($message)
-}
