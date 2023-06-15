@@ -5,10 +5,10 @@
 [STRING]$BizTalkGroup = "$SQLInstance" + ":" + "$BizTalkManagementDb"
 
 # Get Host instances not running
-[ARRAY]$hostInstances = get-wmiobject MSBTS_HostInstance  -namespace 'root\MicrosoftBizTalkServer' -filter '(HostType = 1 and ServiceState != 4)'
+[ARRAY]$hostInstances = get-wmiobject MSBTS_HostInstance  -namespace 'root\MicrosoftBizTalkServer'
 
 #Cancel if all host instances are running
-if ($hostInstances -eq $null) {exit}
+#if ($hostInstances -eq $null) {exit}
 
 Write-Host "There are  $($hostInstances.Count)  Host Instances not running in the BizTalk group $($BizTalkGroup)"
 
