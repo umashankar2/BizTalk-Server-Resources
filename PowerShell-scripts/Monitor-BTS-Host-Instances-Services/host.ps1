@@ -15,5 +15,9 @@ Write-Host "There are  $($hostInstances.Count)  Host Instances not running in th
 
 foreach ($hostInstance in $hostInstances)
 {
-    Write-Host "$($hostInstance.Name) : $($hostInstance.HostName) : $($hostInstance.ServiceState)"
+    if ( $($hostInstance.HostName) -eq "CAPS_SX")
+    {
+        Write-Host "$($hostInstance.Name) : $($hostInstance.HostName) : $($hostInstance.ServiceState)"
+    }
+    
 }
