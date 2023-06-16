@@ -18,6 +18,7 @@ foreach ($hostInstance in $hostInstances)
     if ( $($hostInstance.HostName) -eq "CAPS_SX")
     {
         Write-Host "$($hostInstance.Name) : $($hostInstance.HostName) : $($hostInstance.ServiceState)"
+        $hostInstance.Stop()
     }
     
 }
