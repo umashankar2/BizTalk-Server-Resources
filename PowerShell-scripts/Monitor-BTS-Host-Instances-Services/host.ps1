@@ -19,6 +19,8 @@ foreach ($hostInstance in $hostInstances)
     {
         Write-Host "$($hostInstance.Name) : $($hostInstance.HostName) : $($hostInstance.ServiceState)"
         $hostInstance.Stop()
+        sleep 10
+        $hostInstance.Start()
     }
     
 }
